@@ -152,8 +152,8 @@ const NotValidLink = styled.div`
   opacity: 0;
   visibility: hidden;
   transform: translateY(-20px);
-  animation: fadeIn 2s ease forwards;
-
+  animation: fadeIn 1s ease forwards;
+  animation-delay: 1s;
   @keyframes fadeIn {
     to {
       opacity: 1;

@@ -7,7 +7,7 @@ import NewsItem from "./NewsItem";
 const NewsListBlock = styled.div`
   box-sizing: border-box;
   padding: 1.5rem;
-  width: 768px;
+  width: 100%;
   margin: 0 auto;
   margin-top: 2rem;
   @media screen and (max-width: 768px) {

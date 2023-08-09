@@ -14,7 +14,9 @@ function Keyword() {
 
   return (
     <div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
+      <div
+        style={{ display: "flex", justifyContent: "center", padding: "10px" }}
+      >
         {keywords.map((keyword) => (
           <KeywordButton
             key={keyword}
@@ -49,9 +51,10 @@ const KeywordButton = styled.button`
   line-height: normal;
   border-radius: 20px;
   border: 0.5px solid #b0b0b0;
-  width: 94px;
-  height: 22px;
+  flex-grow: 1;
+  height: 1.5rem;
   flex-shrink: 0;
+  margin-right: 0.5rem;
   margin-top: 1rem;
 `;
 

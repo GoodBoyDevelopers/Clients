@@ -10,6 +10,7 @@ import ArticleDetail from "./ArticleDetail";
 const NewsItemBlock = styled.div`
   display: flex;
   flex-direction: column;
+  width: 100%;
   .thumbnail {
     margin-right: 1rem;
     img {
