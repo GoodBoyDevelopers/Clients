@@ -1,7 +1,5 @@
-// Article.js
-
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
+import styled from "styled-components";
 
 const ArticleDetail = () => {
   const [activeMenu, setActiveMenu] = useState("summary");
@@ -9,60 +7,59 @@ const ArticleDetail = () => {
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
   };
+
   return (
-    <div>
-      <div className="menu-line">
-        <div
-          className={`menu-button ${activeMenu === "summary" ? "active" : ""}`}
+    <Container>
+      <MenuLine>
+        <MenuButton
+          active={activeMenu === "summary"}
           onClick={() => handleMenuClick("summary")}
-          style={{ textAlign: "center" }}
         >
           기사 요약
-        </div>
-        <div
-          className={`menu-button ${
-            activeMenu === "comparison" ? "active" : ""
-          }`}
+        </MenuButton>
+        <MenuButton
+          active={activeMenu === "comparison"}
           onClick={() => handleMenuClick("comparison")}
-          style={{ textAlign: "center" }}
         >
           영상과 비교
-        </div>
-      </div>
-      <div className="menu-content">
+        </MenuButton>
+      </MenuLine>
+      <MenuContent>
         {activeMenu === "summary" && <p>기사요약</p>}
         {activeMenu === "comparison" && <p>영상과 비교</p>}
-      </div>
-      <style>
-        {`
-        .menu-line {
-          display: flex;
-          justify-content: sapce-around;
-          align-items: center;
-          margin-bottom: 1rem;
-        }
-
-        .menu-button {
-          flex: 1;
-          padding: 0.5rem 1rem;
-          margin: 0 0.5rem;
-          border: none;
-          cursor: pointer;
-          font-weight: bold;
-          color: #333;
-        }
-
-        .menu-button.active {
-          border-bottom: 2px solid black;
-        }
-
-        .menu-content {
-          text-align: center;
-        }
-      `}
-      </style>
-    </div>
+      </MenuContent>
+    </Container>
   );
 };
+
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+`;
+
+const MenuLine = styled.div`
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+`;
+
+const MenuButton = styled.div`
+  flex: 1;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #333;
+  border-bottom: ${(props) => (props.active ? "2px solid black" : "none")};
+  padding: 15px 0px;
+  margin-top: 10px;
+  text-align: center;
+`;
+
+const MenuContent = styled.div`
+  background-color: #f4f4f4;
+  padding: 15px 15px 30px 15px;
+  border-radius: 0px 0px 15px 15px;
+`;
 
 export default ArticleDetail;

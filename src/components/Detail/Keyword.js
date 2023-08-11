@@ -5,7 +5,13 @@ import NewsList from "./NewsList";
 import styled from "styled-components";
 
 function Keyword() {
-  const keywords = ["Keyword1", "Keyword2", "Keyword3"]; // 키워드 목록
+  const keywords = [
+    "Keyword1",
+    "Keyword2keyword2",
+    "Keyword3",
+    "keyword4keyword4keyword",
+    "keyword5keyword5keyword5",
+  ]; // 키워드 목록
   const [selectedKeyword, setSelectedKeyword] = useState(keywords[0]);
 
   const handleKeywordClick = (keyword) => {
@@ -14,9 +20,7 @@ function Keyword() {
 
   return (
     <div>
-      <div
-        style={{ display: "flex", justifyContent: "center", padding: "10px" }}
-      >
+      <KeywordContainer>
         {keywords.map((keyword) => (
           <KeywordButton
             key={keyword}
@@ -31,10 +35,10 @@ function Keyword() {
             {keyword}
           </KeywordButton>
         ))}
-      </div>
+      </KeywordContainer>
       <div>
         {selectedKeyword && (
-          <NewsList></NewsList>
+          <NewsList />
           // 여기에 선택된 키워드에 따른 내용을 표시하는 코드를 추가할 수 있습니다.
         )}
       </div>
@@ -44,7 +48,7 @@ function Keyword() {
 
 const KeywordButton = styled.button`
   color: #000;
-  font-family: Pretendard;
+  font-family: "Pretendard-Regular";
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -56,6 +60,14 @@ const KeywordButton = styled.button`
   flex-shrink: 0;
   margin-right: 0.5rem;
   margin-top: 1rem;
+  cursor: pointer;
+`;
+
+const KeywordContainer = styled.div`
+  display: "flex";
+  justify-content: "center";
+  padding: "10px";
+  margin-left: 20px;
 `;
 
 export default Keyword;
