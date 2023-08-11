@@ -1,8 +1,5 @@
-// NewsItem.js
-
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import ArticleDetail from "./ArticleDetail";
@@ -11,43 +8,68 @@ const NewsItemBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
+
   .thumbnail {
     margin-right: 1rem;
+
     img {
       display: block;
-      width: 160px;
-      height: 100px;
+      width: 100px;
+      height: 70px;
       object-fit: cover;
+      border-radius: 5px;
     }
   }
 
   .contents {
-    width: 100%; /* 컨테이너의 너비를 100%로 설정 */
+    width: 100%;
+
     h2 {
       margin: 0;
+
       a {
         color: black;
+        text-decoration: none;
+        font-family: "Pretendard-SemiBold";
       }
     }
+
     p {
       margin: 0;
       line-height: 1.5;
-      margin-top: 0.5 rem;
+      margin-top: 0.5rem;
       white-space: normal;
     }
   }
+
   & + & {
     margin-top: 3rem;
   }
+
+  .toggle-button {
+    background: none;
+    border: none;
+    padding: 0;
+    font-size: inherit;
+    color: inherit;
+    cursor: pointer;
+  }
+`;
+
+const ChevronIcon = styled(FontAwesomeIcon)`
+  font-size: ${(props) => props.size};
 `;
 
 const NewsItem = ({ article }) => {
   const { title, url, urlToImage } = article;
   const [isVisible, setVisible] = useState(false);
+
   const handleToggleContent = () => {
-    setVisible((isVisible) => !isVisible);
+    setVisible(!isVisible);
   };
-  const chevronIconSize = "1.3rem"; // 아이콘 크기
+
+  const chevronIconSize = "1.3rem";
+
   return (
     <NewsItemBlock>
       <div style={{ display: "flex", alignItems: "center" }}>
@@ -65,37 +87,17 @@ const NewsItem = ({ article }) => {
             </a>
           </h2>
         </div>
-        <button
-          className="toggle-button"
-          style={{ width: chevronIconSize, height: chevronIconSize }}
-          onClick={handleToggleContent}
-        >
+        <button className="toggle-button" onClick={handleToggleContent}>
           {isVisible ? (
-            <FontAwesomeIcon
-              icon={faChevronUp}
-              style={{ fontSize: chevronIconSize }}
-            ></FontAwesomeIcon>
+            <ChevronIcon icon={faChevronUp} size={chevronIconSize} />
           ) : (
-            <FontAwesomeIcon
-              icon={faChevronDown}
-              style={{ fontSize: chevronIconSize }}
-            ></FontAwesomeIcon>
+            <ChevronIcon icon={faChevronDown} size={chevronIconSize} />
           )}
         </button>
       </div>
-      {isVisible ? <ArticleDetail></ArticleDetail> : ""}
-      <style>
-        {`
-       .toggle-button {
-         background: none;
-         border: none;
-         padding: 0;
-         font-size: inherit;
-         color: inherit;
-         cursor: pointer;
-       }
-     `}
-      </style>
+      <div className="article-details-container">
+        {isVisible && <ArticleDetail />}
+      </div>
     </NewsItemBlock>
   );
 };

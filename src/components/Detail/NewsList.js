@@ -9,7 +9,7 @@ const NewsListBlock = styled.div`
   padding: 1.5rem;
   width: 100%;
   margin: 0 auto;
-  margin-top: 2rem;
+  margin-top: 10px;
   @media screen and (max-width: 768px) {
     width: 100%;
     padding-left: 1rem;
