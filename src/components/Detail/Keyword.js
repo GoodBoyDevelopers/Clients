@@ -5,13 +5,7 @@ import NewsList from "./NewsList";
 import styled from "styled-components";
 
 function Keyword() {
-  const keywords = [
-    "Keyword1",
-    "Keyword2keyword2",
-    "Keyword3",
-    "keyword4keyword4keyword",
-    "keyword5keyword5keyword5",
-  ]; // 키워드 목록
+  const keywords = ["Keyword1", "Keyword2keyword2", "Keyword3"]; // 키워드 목록
   const [selectedKeyword, setSelectedKeyword] = useState(keywords[0]);
 
   const handleKeywordClick = (keyword) => {

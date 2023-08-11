@@ -1,5 +1,4 @@
 // NewsList.js
-
 import React from "react";
 import styled from "styled-components";
 import NewsItem from "./NewsItem";
@@ -27,7 +26,7 @@ const sampleArticle = {
 const NewsList = () => {
   return (
     <NewsListBlock>
-      <NewsItem article={sampleArticle} />
+      <NewsItem article={sampleArticle} isFirstItem={true} />
       <NewsItem article={sampleArticle} />
       <NewsItem article={sampleArticle} />
     </NewsListBlock>

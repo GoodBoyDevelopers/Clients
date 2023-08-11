@@ -28,11 +28,7 @@ const Detail = () => {
             <Header margin="auto" font="25px" />
           </DetailHeaderDiv>{" "}
           <VideoBox>
-            <ResultsBox
-              videoLink={videoLink}
-              videoInfo={videoInfo}
-              detail={true}
-            ></ResultsBox>
+            <ResultsBox videoInfo={videoInfo} detail={true}></ResultsBox>
           </VideoBox>
           <DescriptionBox>
             <ResultTitleBig>위 영상을 요약해봤어요.</ResultTitleBig>

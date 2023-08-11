@@ -35,10 +35,10 @@ const Search = () => {
         const videoId = extractVideoId(videoLink);
         if (videoId) {
           const response = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.REACT_APP_API_KEY}`
+            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
           );
           const response2 = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${process.env.REACT_APP_API_KEY}`
+            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
           );
 
           const videoInfo = response.data.items[0]?.snippet;
@@ -47,6 +47,8 @@ const Search = () => {
 
           setVideoInfo(videoInfo);
           setIsValidLink(true);
+          // console.log(videoInfo);
+          // console.log(videoInfo2);
         } else {
           setIsValidLink(false);
         }
@@ -89,6 +91,7 @@ const Search = () => {
             <ResultsBox
               videoLink={videoLink}
               videoInfo={videoInfo}
+              videoId={extractVideoId(videoLink)}
               detail={false}
             />
           ) : buttonClicked ? (

@@ -3,8 +3,33 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import ResultBoxContents from "./ResultBoxContents";
+import axios from "axios";
 
-const ResultsBox = ({ videoLink, videoInfo, detail }) => {
+const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
+  // const extractVideoId = (link) => {
+  //   const match = link.match(
+  //     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?]+)/
+  //   );
+  //   if (match) {
+  //     return match[1];
+  //   } else {
+  //     return null;
+  //   }
+  // };
+  const handleBoxClick = async () => {
+    try {
+      if (videoId) {
+        const response = await axios.post("http://localhost:8000", {
+          videoId,
+        });
+        const backendVideoInfo = response.data;
+
+        console.log(backendVideoInfo);
+      }
+    } catch (error) {
+      console.error("Error fetching video info from Backend server:", error);
+    }
+  };
   function convertToMinutes(input) {
     var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
     var hours = 0,
@@ -39,19 +64,27 @@ const ResultsBox = ({ videoLink, videoInfo, detail }) => {
 
   return (
     <>
-      <ResultBox>
+      <ResultBox onClick={handleBoxClick}>
         {valid ? (
-          <Link
-            to={`/post/${videoInfo.channelId}`}
-            state={{ videoLink: videoLink, videioInfo: videoInfo }}
-            style={{ textDecoration: "none" }}
-          >
+          detail ? (
             <ResultBoxContents
               videoInfo={videoInfo}
               validation={validation}
               detail={detail}
             />
-          </Link>
+          ) : (
+            <Link
+              to={`/post/${videoId}`}
+              state={{ videoLink: videoLink, videioInfo: videoInfo }}
+              style={{ textDecoration: "none" }}
+            >
+              <ResultBoxContents
+                videoInfo={videoInfo}
+                validation={validation}
+                detail={detail}
+              />
+            </Link>
+          )
         ) : (
           <ResultBoxContents
             videoInfo={videoInfo}

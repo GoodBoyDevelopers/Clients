@@ -16,7 +16,7 @@ const App = () => {
         {/* Routes */}
         <Routes>
           <Route path="/" element={<Search />}></Route>
-          <Route path="/post/:channelID" element={<Detail />}></Route>
+          <Route path="/post/:videoId" element={<Detail />}></Route>
         </Routes>
       </MediaDiv>
     </>

@@ -60,9 +60,10 @@ const ChevronIcon = styled(FontAwesomeIcon)`
   font-size: ${(props) => props.size};
 `;
 
-const NewsItem = ({ article }) => {
+const NewsItem = ({ article, isFirstItem }) => {
+  // props에 isFirstItem 추가
   const { title, url, urlToImage } = article;
-  const [isVisible, setVisible] = useState(false);
+  const [isVisible, setVisible] = useState(isFirstItem);
 
   const handleToggleContent = () => {
     setVisible(!isVisible);
