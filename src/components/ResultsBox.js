@@ -6,6 +6,8 @@ import ResultBoxContents from "./ResultBoxContents";
 import axios from "axios";
 import { useState } from "react";
 
+const BASE_URL = "http://127.0.0.1:8000";
+
 const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -16,29 +18,33 @@ const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
     const linkData = { link: videoLink };
 
     axios
-      .post(`${videoLink}/youtube/script/`, linkData)
+      .post(`${BASE_URL}/youtube/script/`, linkData)
       .then((response1) => {
         if (response1.status === 201) {
+          console.log(response1);
           const idData1 = { id: response1.data.id };
-          return axios.post(`${videoLink}/youtube/keyword`, idData1);
+          return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
         }
         throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
       })
       .then((response2) => {
         if (response2.status === 201) {
+          console.log(response2);
           const idData2 = { id: response2.data.id };
-          return axios.post(`${videoLink}/news/`, idData2);
+          return axios.post(`${BASE_URL}/news/`, idData2);
         }
         throw new Error("백엔드 코드 문제일듯,,");
       })
       .then((response3) => {
         if (response3.status === 201) {
+          console.log(response3);
           const idData3 = { id: response3.data.youtube };
-          return axios.post(`${videoLink}/difference/`, idData3);
+          return axios.post(`${BASE_URL}/difference/`, idData3);
         }
         throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
       })
       .then((response4) => {
+        console.log(response4);
         if (response4.status !== 201) {
           throw new Error("백엔드 코드 문제일듯");
         }
