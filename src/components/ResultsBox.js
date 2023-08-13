@@ -4,31 +4,50 @@ import { Link } from "react-router-dom";
 import { styled } from "styled-components";
 import ResultBoxContents from "./ResultBoxContents";
 import axios from "axios";
+import { useState } from "react";
 
 const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
-  // const extractVideoId = (link) => {
-  //   const match = link.match(
-  //     /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/shorts\/)([^&?]+)/
-  //   );
-  //   if (match) {
-  //     return match[1];
-  //   } else {
-  //     return null;
-  //   }
-  // };
-  const handleBoxClick = async () => {
-    try {
-      if (videoId) {
-        const response = await axios.post("http://localhost:8000", {
-          videoId,
-        });
-        const backendVideoInfo = response.data;
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-        console.log(backendVideoInfo);
-      }
-    } catch (error) {
-      console.error("Error fetching video info from Backend server:", error);
-    }
+  const handleBoxClick = () => {
+    setLoading(true);
+
+    const linkData = { link: videoLink };
+
+    axios
+      .post(`${videoLink}/youtube/script/`, linkData)
+      .then((response1) => {
+        if (response1.status === 201) {
+          const idData1 = { id: response1.data.id };
+          return axios.post(`${videoLink}/youtube/keyword`, idData1);
+        }
+        throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
+      })
+      .then((response2) => {
+        if (response2.status === 201) {
+          const idData2 = { id: response2.data.id };
+          return axios.post(`${videoLink}/news/`, idData2);
+        }
+        throw new Error("백엔드 코드 문제일듯,,");
+      })
+      .then((response3) => {
+        if (response3.status === 201) {
+          const idData3 = { id: response3.data.youtube };
+          return axios.post(`${videoLink}/difference/`, idData3);
+        }
+        throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
+      })
+      .then((response4) => {
+        if (response4.status !== 201) {
+          throw new Error("백엔드 코드 문제일듯");
+        }
+        console.log("All POST requests were successful!");
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => {
+        setLoading(false);
+      });
   };
   function convertToMinutes(input) {
     var reptms = /^PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$/;
