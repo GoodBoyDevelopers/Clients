@@ -1,16 +1,16 @@
 // Keyword.js
 
-import React, { useState } from "react";
+import React from "react";
 import NewsList from "./NewsList";
 import styled from "styled-components";
 
-function Keyword() {
-  const keywords = ["Keyword1", "Keyword2keyword2", "Keyword3"]; // 키워드 목록
-  const [selectedKeyword, setSelectedKeyword] = useState(keywords[0]);
+const Keyword = ({ keywords }) => {
+  // 키워드 클릭기능 필요 X
+  // const [selectedKeyword, setSelectedKeyword] = useState(keywords[0]);
 
-  const handleKeywordClick = (keyword) => {
-    setSelectedKeyword(keyword);
-  };
+  // const handleKeywordClick = (keyword) => {
+  //   setSelectedKeyword(keyword);
+  // };
 
   return (
     <div>
@@ -18,12 +18,11 @@ function Keyword() {
         {keywords.map((keyword) => (
           <KeywordButton
             key={keyword}
-            onClick={() => handleKeywordClick(keyword)}
+            // onClick={() => handleKeywordClick(keyword)}
             style={{
               marginRight: "10px",
-              backgroundColor:
-                selectedKeyword === keyword ? "#404040" : "white",
-              color: selectedKeyword === keyword ? "#FFF" : "#000",
+              backgroundColor: "white",
+              color: "#000",
             }}
           >
             {keyword}
@@ -31,14 +30,11 @@ function Keyword() {
         ))}
       </KeywordContainer>
       <div>
-        {selectedKeyword && (
-          <NewsList />
-          // 여기에 선택된 키워드에 따른 내용을 표시하는 코드를 추가할 수 있습니다.
-        )}
+        <NewsList></NewsList>
       </div>
     </div>
   );
-}
+};
 
 const KeywordButton = styled.button`
   color: #000;
@@ -58,9 +54,10 @@ const KeywordButton = styled.button`
 `;
 
 const KeywordContainer = styled.div`
-  display: "flex";
-  justify-content: "center";
-  padding: "10px";
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
   margin-left: 20px;
 `;
 

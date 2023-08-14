@@ -6,6 +6,11 @@ import { styled } from "styled-components";
 import { motion } from "framer-motion";
 import { Main } from "../styledComponents";
 import Keyword from "../components/Detail/Keyword";
+import { useEffect } from "react";
+import { useState } from "react";
+import axios from "axios";
+
+const BASE_URL = "http://127.0.0.1:8000";
 
 const DummyData = {
   summary:
@@ -14,8 +19,62 @@ const DummyData = {
 
 const Detail = () => {
   const location = useLocation();
-  const videoLink = location.state.videioLink;
-  const videoInfo = location.state.videioInfo;
+  const videoLink = location.state.videoLink;
+  const videoInfo = location.state.videoInfo;
+
+  const [error, setError] = useState(null);
+
+  // 화면에 나타낼 데이터 변수들 useState로 설정 => 이것들이 초깃값일 때 loading 화면 띄워주고 아니면 data 보여주면 됨
+  const [scriptResponse, setScriptResponse] = useState(null);
+  const [keywordResponse, setKeywordResponse] = useState([]);
+  const [summaryResponse, setSummaryResponse] = useState(null);
+  const [newsResponse, setNewsResponse] = useState(null);
+  const [differenceResponse, setDifferenceResponse] = useState(null);
+
+  useEffect(() => {
+    console.log("first rendering");
+
+    const linkData = { link: videoLink };
+
+    axios
+      .post(`${BASE_URL}/youtube/script/`, linkData)
+      .then((response1) => {
+        if (response1.status === 201) {
+          console.log(response1);
+          setScriptResponse(response1.data);
+          const idData1 = { id: response1.data.id };
+          return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
+        }
+        throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
+      })
+      .then((response2) => {
+        if (response2.status === 201) {
+          console.log(response2);
+          setSummaryResponse(response2.data.summary);
+          setKeywordResponse(response2.data.keywords);
+          const idData2 = { id: response2.data.id };
+          return axios.post(`${BASE_URL}/news/`, idData2);
+        }
+        throw new Error("백엔드 코드 문제일듯,,");
+      })
+      .then((response3) => {
+        if (response3.status === 201) {
+          console.log(response3);
+          const idData3 = { id: response3.data.youtube };
+          return axios.post(`${BASE_URL}/difference/`, idData3);
+        }
+        throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
+      })
+      .then((response4) => {
+        console.log(response4);
+        if (response4.status !== 201) {
+          throw new Error("백엔드 코드 문제일듯");
+        }
+        console.log("All POST requests were successful!");
+      })
+      .catch((err) => setError(err.message))
+      .finally(() => {});
+  }, []);
   return (
     <motion.div
       initial={{ opacity: 2 }}
@@ -32,14 +91,14 @@ const Detail = () => {
           </VideoBox>
           <DescriptionBox>
             <ResultTitleBig>위 영상을 요약해봤어요.</ResultTitleBig>
-            <Description>{DummyData.summary}</Description>
+            <Description>{summaryResponse}</Description>
           </DescriptionBox>
           <ArticleBox>
             <ResultTitleBig>
               키워드 별로 관련된 기사를 찾아봤어요.
             </ResultTitleBig>
-            <KeywordDescription>키워드를 눌러주세요.</KeywordDescription>
-            <Keyword />
+            {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
+            <Keyword keywords={keywordResponse} />
           </ArticleBox>
         </DetailDiv>
       </Main>
