@@ -3,6 +3,7 @@
 import React from "react";
 import NewsList from "./NewsList";
 import styled from "styled-components";
+import SkeletonKeyword from "../skeleton/SkeletonKeyword";
 
 const Keyword = ({ keywords }) => {
   // 키워드 클릭기능 필요 X
@@ -16,18 +17,18 @@ const Keyword = ({ keywords }) => {
     <div>
       <KeywordContainer>
         {keywords.map((keyword) => (
-          <KeywordButton
-            key={keyword}
-            // onClick={() => handleKeywordClick(keyword)}
-            style={{
-              marginRight: "10px",
-              backgroundColor: "white",
-              color: "#000",
-            }}
-          >
-            {keyword}
-          </KeywordButton>
+          <KeywordButton>{keyword}</KeywordButton>
         ))}
+        {!keywords.length && (
+          <div>
+            <KeywordButton>
+              <SkeletonKeyword />
+            </KeywordButton>
+            <KeywordButton>
+              <SkeletonKeyword />
+            </KeywordButton>
+          </div>
+        )}
       </KeywordContainer>
       <div>
         <NewsList></NewsList>
@@ -50,14 +51,10 @@ const KeywordButton = styled.button`
   flex-shrink: 0;
   margin-right: 0.5rem;
   margin-top: 1rem;
-  cursor: pointer;
 `;
 
 const KeywordContainer = styled.div`
-  display: flex;
-  justify-content: center;
   align-items: center;
-  padding: 10px;
   margin-left: 20px;
 `;
 

@@ -9,6 +9,7 @@ import Keyword from "../components/Detail/Keyword";
 import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
+import SkeletonSummary from "../components/skeleton/SkeletonSummary";
 
 const BASE_URL = "http://127.0.0.1:8000";
 
@@ -91,12 +92,13 @@ const Detail = () => {
           </VideoBox>
           <DescriptionBox>
             <ResultTitleBig>위 영상을 요약해봤어요.</ResultTitleBig>
-            <Description>{summaryResponse}</Description>
+            <Description>
+              {summaryResponse}
+              {!summaryResponse && <SkeletonSummary />}
+            </Description>
           </DescriptionBox>
           <ArticleBox>
-            <ResultTitleBig>
-              키워드 별로 관련된 기사를 찾아봤어요.
-            </ResultTitleBig>
+            <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
             {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
             <Keyword keywords={keywordResponse} />
           </ArticleBox>
