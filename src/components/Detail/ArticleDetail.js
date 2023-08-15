@@ -54,12 +54,14 @@ const MenuButton = styled.div`
   padding: 15px 0px;
   margin-top: 10px;
   text-align: center;
+  font-family: "Pretendard-SemiBold";
 `;
 
 const MenuContent = styled.div`
   background-color: #f4f4f4;
   padding: 15px 15px 30px 15px;
   border-radius: 0px 0px 15px 15px;
+  font-family: "Pretendard-Regular";
 `;
 
 export default ArticleDetail;
