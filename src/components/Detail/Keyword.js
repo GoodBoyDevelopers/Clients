@@ -26,6 +26,9 @@ const Keyword = ({ keywords }) => {
             <KeywordButton>
               <SkeletonKeyword />
             </KeywordButton>
+            <KeywordButton>
+              <SkeletonKeyword />
+            </KeywordButton>
           </div>
         )}
       </KeywordContainer>

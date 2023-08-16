@@ -27,16 +27,17 @@ const ArticleDetail = ({ article, differences, index }) => {
         </MenuButton>
       </MenuLine>
       <MenuContent>
-        {differences.length === 0 ? (
-          <SkeletonSummary />
-        ) : (
+        {activeMenu === "summary" && (
+          <ContentText>{article.summary}</ContentText>
+        )}
+        {activeMenu === "comparison" && (
           <>
-            {" "}
-            {activeMenu === "summary" && (
-              <ContentText>{article.summary}</ContentText>
-            )}
-            {activeMenu === "comparison" && (
-              <ContentText>{differences[index].reason}</ContentText>
+            {differences.length === 0 ? (
+              <SkeletonSummary />
+            ) : (
+              <ContentText>
+                {differences[index] ? differences[index].reason : "로딩 중..."}
+              </ContentText>
             )}
           </>
         )}

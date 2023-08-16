@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 import ArticleDetail from "./ArticleDetail";
+import { Link } from "react-router-dom";
 
 const NewsItemBlock = styled.div`
   display: flex;
@@ -67,7 +68,7 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
   console.log(differences);
   console.log(index);
   // props에 isFirstItem 추가
-  const { title, thumbnail } = article;
+  const { title, thumbnail, origin_link } = article;
   const [isVisible, setVisible] = useState(isFirstItem);
 
   const handleToggleContent = () => {
@@ -85,7 +86,11 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
           </div>
         }
         <div className="contents">
-          <h2>{title}</h2>
+          <h2>
+            <Link to={origin_link} target="_blank" rel="noopener noreferrer">
+              {title}
+            </Link>
+          </h2>
         </div>
         <button className="toggle-button" onClick={handleToggleContent}>
           {isVisible ? (
