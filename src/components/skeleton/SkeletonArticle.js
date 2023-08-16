@@ -1,4 +1,3 @@
-import SkeletonImg from "./SkeletonImg";
 import React from "react";
 import SkeletonSummary from "./SkeletonSummary";
 

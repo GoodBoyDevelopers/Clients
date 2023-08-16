@@ -1,34 +1,19 @@
-import styled from "styled-components";
+import React from "react";
+import { styled } from "styled-components";
+import SkeletonItem from "./SkeletonItem";
 
-const SkeletonImg = styled.div`
-  width: 50px;
-  height: 50px;
-  background: #f2f2f2;
-  position: relative;
-  overflow: hidden;
+const SkeletonImg = () => {
+  return (
+    <div>
+      <SSkeletonImg />
+    </div>
+  );
+};
 
-  @keyframes skeleton-gradient {
-    0% {
-      background-color: rgba(165, 165, 165, 0.1);
-    }
-    50% {
-      background-color: rgba(165, 165, 165, 0.3);
-    }
-    100% {
-      background-color: rgba(165, 165, 165, 0.1);
-    }
-  }
-
-  &:before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 30px;
-    height: 100%;
-    background: linear-gradient(to right, #f2f2f2, #ddd, #f2f2f2);
-    animation: loading 2s infinite linear;
-  }
+const SSkeletonImg = styled(SkeletonItem)`
+  width: 100px;
+  height: 70px;
+  border-radius: 5px;
 `;
 
 export default SkeletonImg;
