@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ArticleDetail = () => {
+const ArticleDetail = ({ article }) => {
   const [activeMenu, setActiveMenu] = useState("summary");
 
   const handleMenuClick = (menu) => {
@@ -25,7 +25,7 @@ const ArticleDetail = () => {
         </MenuButton>
       </MenuLine>
       <MenuContent>
-        {activeMenu === "summary" && <p>기사요약</p>}
+        {activeMenu === "summary" && <p>{article.summary}</p>}
         {activeMenu === "comparison" && <p>영상과 비교</p>}
       </MenuContent>
     </Container>

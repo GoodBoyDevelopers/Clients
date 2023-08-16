@@ -23,12 +23,17 @@ const sampleArticle = {
   urlToImage: "https://via.placeholder.com/160",
 };
 
-const NewsList = () => {
+const NewsList = ({ news }) => {
   return (
     <NewsListBlock>
-      <NewsItem article={sampleArticle} isFirstItem={true} />
-      <NewsItem article={sampleArticle} />
-      <NewsItem article={sampleArticle} />
+      {news &&
+        news.map((article, index) => (
+          <NewsItem
+            key={index}
+            article={article}
+            isFirstItem={index === 0}
+          ></NewsItem>
+        ))}
     </NewsListBlock>
   );
 };

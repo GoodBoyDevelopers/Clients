@@ -1,7 +1,6 @@
 // Keyword.js
 
 import React from "react";
-import NewsList from "./NewsList";
 import styled from "styled-components";
 import SkeletonKeyword from "../skeleton/SkeletonKeyword";
 
@@ -30,9 +29,6 @@ const Keyword = ({ keywords }) => {
           </div>
         )}
       </KeywordContainer>
-      <div>
-        <NewsList></NewsList>
-      </div>
     </div>
   );
 };

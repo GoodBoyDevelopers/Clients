@@ -10,13 +10,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import axios from "axios";
 import SkeletonSummary from "../components/skeleton/SkeletonSummary";
+import NewsList from "../components/Detail/NewsList";
 
-const BASE_URL = "http://127.0.0.1:8000";
-
-const DummyData = {
-  summary:
-    "9월부터 학부모가 교사와 면담을 원할 시 앱을 통해 약속을 잡고 일반적인 민원은 챗봇을 이용하는 등 학교 민원창구가 일원화된다.",
-};
+const BASE_URL = "https://port-0-you-check-ac2nllazbxp3.sel3.cloudtype.app/";
 
 const Detail = () => {
   const location = useLocation();
@@ -61,6 +57,7 @@ const Detail = () => {
       .then((response3) => {
         if (response3.status === 201) {
           console.log(response3);
+          setNewsResponse(response3.data);
           const idData3 = { id: response3.data.youtube };
           return axios.post(`${BASE_URL}/difference/`, idData3);
         }
@@ -101,6 +98,7 @@ const Detail = () => {
             <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
             {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
             <Keyword keywords={keywordResponse} />
+            <NewsList news={newsResponse}></NewsList>
           </ArticleBox>
         </DetailDiv>
       </Main>

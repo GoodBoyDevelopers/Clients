@@ -62,7 +62,7 @@ const ChevronIcon = styled(FontAwesomeIcon)`
 
 const NewsItem = ({ article, isFirstItem }) => {
   // props에 isFirstItem 추가
-  const { title, url, urlToImage } = article;
+  const { title, thumbnail } = article;
   const [isVisible, setVisible] = useState(isFirstItem);
 
   const handleToggleContent = () => {
@@ -74,19 +74,13 @@ const NewsItem = ({ article, isFirstItem }) => {
   return (
     <NewsItemBlock>
       <div style={{ display: "flex", alignItems: "center" }}>
-        {urlToImage && (
+        {
           <div className="thumbnail">
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              <img src={urlToImage} alt="thumbnail" />
-            </a>
+            <img src={thumbnail} alt="thumbnail" />
           </div>
-        )}
+        }
         <div className="contents">
-          <h2>
-            <a href={url} target="_blank" rel="noopener noreferrer">
-              {title}
-            </a>
-          </h2>
+          <h2>{title}</h2>
         </div>
         <button className="toggle-button" onClick={handleToggleContent}>
           {isVisible ? (
@@ -97,7 +91,7 @@ const NewsItem = ({ article, isFirstItem }) => {
         </button>
       </div>
       <div className="article-details-container">
-        {isVisible && <ArticleDetail />}
+        {isVisible && <ArticleDetail article={article} />}
       </div>
     </NewsItemBlock>
   );
