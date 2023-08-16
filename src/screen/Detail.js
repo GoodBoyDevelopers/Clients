@@ -29,9 +29,8 @@ const Detail = () => {
   const [differenceResponse, setDifferenceResponse] = useState(null);
 
   useEffect(() => {
-    console.log("first rendering");
-
     const linkData = { link: videoLink };
+    const idData1 = {};
 
     axios
       .post(`${BASE_URL}/youtube/script/`, linkData)
@@ -39,7 +38,7 @@ const Detail = () => {
         if (response1.status === 201) {
           console.log(response1);
           setScriptResponse(response1.data);
-          const idData1 = { id: response1.data.id };
+          idData1.id = response1.data.id;
           return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
         }
         throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
@@ -58,13 +57,15 @@ const Detail = () => {
         if (response3.status === 201) {
           console.log(response3);
           setNewsResponse(response3.data);
-          const idData3 = { id: response3.data.youtube };
-          return axios.post(`${BASE_URL}/difference/`, idData3);
+          //const idData3 = { id: response3.data.youtube };
+          return axios.post(`${BASE_URL}/difference/`, idData1);
         }
         throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
       })
       .then((response4) => {
         console.log(response4);
+        setDifferenceResponse(response4.data);
+        console.log(response4.data);
         if (response4.status !== 201) {
           throw new Error("백엔드 코드 문제일듯");
         }
@@ -98,7 +99,10 @@ const Detail = () => {
             <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
             {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
             <Keyword keywords={keywordResponse} />
-            <NewsList news={newsResponse}></NewsList>
+            <NewsList
+              news={newsResponse}
+              differences={differenceResponse}
+            ></NewsList>
           </ArticleBox>
         </DetailDiv>
       </Main>

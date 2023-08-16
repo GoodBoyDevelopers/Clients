@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "styled-components";
 import NewsItem from "./NewsItem";
+import SkeletonArticle from "../skeleton/SkeletonArticle";
 
 const NewsListBlock = styled.div`
   box-sizing: border-box;
@@ -16,24 +17,22 @@ const NewsListBlock = styled.div`
   }
 `;
 
-const sampleArticle = {
-  title: "제목",
-  description: "내용",
-  url: "https://google.com",
-  urlToImage: "https://via.placeholder.com/160",
-};
-
-const NewsList = ({ news }) => {
+const NewsList = ({ news, differences }) => {
+  console.log(differences);
   return (
     <NewsListBlock>
-      {news &&
-        news.map((article, index) => (
-          <NewsItem
-            key={index}
-            article={article}
-            isFirstItem={index === 0}
-          ></NewsItem>
-        ))}
+      {news
+        ? news.map((article, index) => (
+            <NewsItem
+              index={index}
+              article={article}
+              differences={differences}
+              isFirstItem={index === 0}
+            ></NewsItem>
+          ))
+        : new Array(3).fill(1).map((_, i) => {
+            return <SkeletonArticle />;
+          })}
     </NewsListBlock>
   );
 };

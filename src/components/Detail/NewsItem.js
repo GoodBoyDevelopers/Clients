@@ -60,7 +60,9 @@ const ChevronIcon = styled(FontAwesomeIcon)`
   font-size: ${(props) => props.size};
 `;
 
-const NewsItem = ({ article, isFirstItem }) => {
+const NewsItem = ({ article, isFirstItem, differences, index }) => {
+  console.log(differences);
+  console.log(index);
   // props에 isFirstItem 추가
   const { title, thumbnail } = article;
   const [isVisible, setVisible] = useState(isFirstItem);
@@ -91,7 +93,13 @@ const NewsItem = ({ article, isFirstItem }) => {
         </button>
       </div>
       <div className="article-details-container">
-        {isVisible && <ArticleDetail article={article} />}
+        {isVisible && (
+          <ArticleDetail
+            article={article}
+            differences={differences}
+            index={index}
+          />
+        )}
       </div>
     </NewsItemBlock>
   );
