@@ -28,7 +28,7 @@ const NewsList = ({ news, differences }) => {
               article={article}
               differences={differences}
               isFirstItem={index === 0}
-            ></NewsItem>
+            />
           ))
         : new Array(3).fill(1).map((_, i) => {
             return <SkeletonArticle />;

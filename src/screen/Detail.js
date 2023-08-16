@@ -26,7 +26,7 @@ const Detail = () => {
   const [keywordResponse, setKeywordResponse] = useState([]);
   const [summaryResponse, setSummaryResponse] = useState(null);
   const [newsResponse, setNewsResponse] = useState(null);
-  const [differenceResponse, setDifferenceResponse] = useState(null);
+  const [differenceResponse, setDifferenceResponse] = useState([]);
 
   useEffect(() => {
     const linkData = { link: videoLink };
@@ -99,10 +99,7 @@ const Detail = () => {
             <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
             {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
             <Keyword keywords={keywordResponse} />
-            <NewsList
-              news={newsResponse}
-              differences={differenceResponse}
-            ></NewsList>
+            <NewsList news={newsResponse} differences={differenceResponse} />
           </ArticleBox>
         </DetailDiv>
       </Main>

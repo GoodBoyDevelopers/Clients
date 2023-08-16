@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import SkeletonSummary from "../skeleton/SkeletonSummary";
 
 const ArticleDetail = ({ article, differences, index }) => {
   console.log(differences);
@@ -26,8 +27,15 @@ const ArticleDetail = ({ article, differences, index }) => {
         </MenuButton>
       </MenuLine>
       <MenuContent>
-        {activeMenu === "summary" && <p>{article.summary}</p>}
-        {activeMenu === "comparison" && <p>{differences[index].reason}</p>}
+        {differences.length === 0 ? (
+          <SkeletonSummary />
+        ) : (
+          <>
+            {" "}
+            {activeMenu === "summary" && <p>{article.summary}</p>}
+            {activeMenu === "comparison" && <p>{differences[index].reason}</p>}
+          </>
+        )}
       </MenuContent>
     </Container>
   );
