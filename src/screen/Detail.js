@@ -116,7 +116,7 @@ const Description = styled.div`
   margin-left: 20px;
   color: #000;
   font-family: "Pretendard-Regular";
-  font-size: 14px;
+  font-size: 15px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
@@ -134,16 +134,16 @@ const DetailDiv = styled.div`
   flex-direction: column;
 `;
 
-const KeywordDescription = styled.h3`
-  color: #b0b0b0;
-  font-family: "Pretendard-SemiBold";
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
-  padding-left: 20px;
-  padding-top: 10px;
-`;
+// const KeywordDescription = styled.h3`
+//   color: #b0b0b0;
+//   font-family: "Pretendard-SemiBold";
+//   font-size: 12px;
+//   font-style: normal;
+//   font-weight: 600;
+//   line-height: normal;
+//   padding-left: 20px;
+//   padding-top: 10px;
+// `;
 
 const ArticleBox = styled.div`
   margin-top: 20px;

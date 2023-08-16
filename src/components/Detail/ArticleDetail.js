@@ -32,14 +32,24 @@ const ArticleDetail = ({ article, differences, index }) => {
         ) : (
           <>
             {" "}
-            {activeMenu === "summary" && <p>{article.summary}</p>}
-            {activeMenu === "comparison" && <p>{differences[index].reason}</p>}
+            {activeMenu === "summary" && (
+              <ContentText>{article.summary}</ContentText>
+            )}
+            {activeMenu === "comparison" && (
+              <ContentText>{differences[index].reason}</ContentText>
+            )}
           </>
         )}
       </MenuContent>
     </Container>
   );
 };
+
+const ContentText = styled.h3`
+  font-family: "Pretendard-Regular";
+  font-size: 15px;
+  line-height: normal;
+`;
 
 const Container = styled.div`
   display: flex;

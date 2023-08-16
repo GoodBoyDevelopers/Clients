@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import { styled } from "styled-components";
+import SkeletonItem from "./SkeletonItem";
+import SkeletonImg from "./SkeletonImg";
+import SkeletonTitle from "./SkeletonTitle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
-import ArticleDetail from "./ArticleDetail";
 
-const NewsItemBlock = styled.div`
+const NewsItemBlock = styled(SkeletonItem)`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -59,16 +61,8 @@ const NewsItemBlock = styled.div`
   }
 `;
 
-const ChevronIcon = styled(FontAwesomeIcon)`
-  font-size: ${(props) => props.size};
-`;
-
-const NewsItem = ({ article, isFirstItem, differences, index }) => {
-  console.log(differences);
-  console.log(index);
-  // props에 isFirstItem 추가
-  const { title, thumbnail } = article;
-  const [isVisible, setVisible] = useState(isFirstItem);
+const SkeletonNewsItem = () => {
+  const [isVisible, setVisible] = useState();
 
   const handleToggleContent = () => {
     setVisible(!isVisible);
@@ -81,31 +75,25 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
       <div style={{ display: "flex", alignItems: "center" }}>
         {
           <div className="thumbnail">
-            <img src={thumbnail} alt="thumbnail" />
+            <SkeletonImg />
           </div>
         }
         <div className="contents">
-          <h2>{title}</h2>
+          <SkeletonTitle />
         </div>
         <button className="toggle-button" onClick={handleToggleContent}>
           {isVisible ? (
-            <ChevronIcon icon={faChevronUp} size={chevronIconSize} />
+            <FontAwesomeIcon icon={faChevronUp} size={chevronIconSize} />
           ) : (
-            <ChevronIcon icon={faChevronDown} size={chevronIconSize} />
+            <FontAwesomeIcon icon={faChevronDown} size={chevronIconSize} />
           )}
         </button>
       </div>
       <div className="article-details-container">
-        {isVisible && (
-          <ArticleDetail
-            article={article}
-            differences={differences}
-            index={index}
-          />
-        )}
+        <SkeletonTitle />
       </div>
     </NewsItemBlock>
   );
 };
 
-export default NewsItem;
+export default SkeletonNewsItem;
