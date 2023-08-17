@@ -27,10 +27,12 @@ const ArticleDetail = ({ article, differences, index }) => {
         </MenuButton>
       </MenuLine>
       <MenuContent>
-        {differences.length === 0 ? (
-          <SkeletonSummary />
-        ) : (
+        {activeMenu === "summary" && (
+          <ContentText>{article.summary}</ContentText>
+        )}
+        {activeMenu === "comparison" && (
           <>
+
             {" "}
             {activeMenu === "summary" && (
               <ContentText>{article.summary}</ContentText>
@@ -42,6 +44,7 @@ const ArticleDetail = ({ article, differences, index }) => {
                 </Persentage>
                 <ContentText>{differences[index].reason}</ContentText>
               </div>
+
             )}
           </>
         )}

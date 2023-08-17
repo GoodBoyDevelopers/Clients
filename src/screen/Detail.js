@@ -59,6 +59,9 @@ const Detail = () => {
           setNewsResponse(response3.data);
           //const idData3 = { id: response3.data.youtube };
           return axios.post(`${BASE_URL}/difference/`, idData1);
+        } else if (response3.status === 204) {
+          console.log("No news found for the video");
+          return;
         }
         throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
       })
@@ -95,12 +98,21 @@ const Detail = () => {
               {!summaryResponse && <SkeletonSummary />}
             </Description>
           </DescriptionBox>
-          <ArticleBox>
-            <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
-            {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
-            <Keyword keywords={keywordResponse} />
-            <NewsList news={newsResponse} differences={differenceResponse} />
-          </ArticleBox>
+          {newsResponse !== null ? (
+            <ArticleBox>
+              <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
+              {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
+              <Keyword keywords={keywordResponse} />
+              <NewsList news={newsResponse} differences={differenceResponse} />
+            </ArticleBox>
+          ) : (
+            <ArticleBox>
+              <ResultTitleBig>
+                영상과 관련된 기사를 찾지 못했습니다.
+              </ResultTitleBig>
+              <Keyword keywords={keywordResponse} />
+            </ArticleBox>
+          )}
         </DetailDiv>
       </Main>
     </motion.div>
