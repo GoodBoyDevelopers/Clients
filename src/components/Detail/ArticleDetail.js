@@ -10,6 +10,20 @@ const ArticleDetail = ({ article, differences, index }) => {
     setActiveMenu(menu);
   };
 
+  const getTextColor = (percentage) => {
+    const parsedPercentage = parseFloat(percentage);
+    console.log(parsedPercentage);
+    if (parsedPercentage < 30) {
+      return "#a9a9a9";
+    } else if (parsedPercentage < 50) {
+      return "#9a9a9a";
+    } else if (parsedPercentage < 70) {
+      return "#4e4e4e";
+    } else {
+      return "black";
+    }
+  };
+
   return (
     <Container>
       <MenuLine>
@@ -36,9 +50,17 @@ const ArticleDetail = ({ article, differences, index }) => {
               <SkeletonSummary />
             ) : (
               <div>
-                <Persentage>
-                  이 영상과 {differences[index].percentage} 유사해요.
-                </Persentage>
+                <Percentage>
+                  이 영상과{" "}
+                  <span
+                    style={{
+                      color: getTextColor(differences[index].percentage),
+                    }}
+                  >
+                    {differences[index].percentage}
+                  </span>{" "}
+                  유사해요.
+                </Percentage>
                 <ContentText>{differences[index].reason}</ContentText>
               </div>
             )}
@@ -49,7 +71,7 @@ const ArticleDetail = ({ article, differences, index }) => {
   );
 };
 
-const Persentage = styled.h2`
+const Percentage = styled.h2`
   font-family: "Pretendard-SemiBold";
   font-size: 18px;
   margin: 10px 0;
@@ -58,7 +80,7 @@ const Persentage = styled.h2`
 const ContentText = styled.h3`
   font-family: "Pretendard-Regular";
   font-size: 15px;
-  line-height: normal;
+  line-height: 25px;
 `;
 
 const Container = styled.div`

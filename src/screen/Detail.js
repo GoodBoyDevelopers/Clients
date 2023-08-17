@@ -155,7 +155,7 @@ const Description = styled.div`
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 25px;
   padding-top: 10px;
 `;
 
