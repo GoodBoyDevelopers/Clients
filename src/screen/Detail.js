@@ -100,7 +100,7 @@ const Detail = () => {
       <Main>
         <DetailDiv>
           <DetailHeaderDiv>
-            <Header margin="auto" font="25px" />
+            <Header margin="auto" width="158px" height="30px" />
           </DetailHeaderDiv>{" "}
           <VideoBox>
             <ResultsBox videoInfo={videoInfo} detail={true}></ResultsBox>
@@ -155,7 +155,7 @@ const Description = styled.div`
   font-size: 15px;
   font-style: normal;
   font-weight: 400;
-  line-height: normal;
+  line-height: 25px;
   padding-top: 10px;
 `;
 

@@ -85,7 +85,7 @@ const Search = () => {
     >
       <Main>
         <SearchHeaderDiv>
-          <Header />
+          <Header width="316.5px" height="60px" />
         </SearchHeaderDiv>
         <SearchSection>
           <UrlInput type="url" onClick={handlePaste}>
