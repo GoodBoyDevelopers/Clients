@@ -104,7 +104,10 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
             className="thumbnail"
             onClick={() => window.open(`${origin_link}`, "_blank")}
           >
-            <img src={thumbnail} alt="thumbnail" />
+            <img
+              src={thumbnail ? thumbnail : "../img/likelion.png"}
+              alt="thumbnail"
+            />
           </div>
         }
         <div

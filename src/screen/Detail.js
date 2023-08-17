@@ -42,6 +42,8 @@ const Detail = () => {
           idData1.id = response1.data.id;
           newsData.youtube_id = response1.data.id;
           return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
+        } else if (response1.status !== 201) {
+          return;
         }
         throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
       })
