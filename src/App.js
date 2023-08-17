@@ -26,10 +26,10 @@ const App = () => {
 const MediaDiv = styled.div`
   margin: 0px auto;
   min-height: 100vh;
-  width: 500px;
+  width: 700px;
   color: #2c2c2c;
   background-color: white;
-  @media screen and (max-width: 500px) {
+  @media screen and (max-width: 700px) {
     width: 100%;
   }
 `;
