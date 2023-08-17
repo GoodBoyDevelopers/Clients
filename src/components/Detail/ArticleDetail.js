@@ -36,7 +36,12 @@ const ArticleDetail = ({ article, differences, index }) => {
               <ContentText>{article.summary}</ContentText>
             )}
             {activeMenu === "comparison" && (
-              <ContentText>{differences[index].reason}</ContentText>
+              <div>
+                <Persentage>
+                  이 영상과 {differences[index].percentage} 유사해요.
+                </Persentage>
+                <ContentText>{differences[index].reason}</ContentText>
+              </div>
             )}
           </>
         )}
@@ -44,6 +49,12 @@ const ArticleDetail = ({ article, differences, index }) => {
     </Container>
   );
 };
+
+const Persentage = styled.h2`
+  font-family: "Pretendard-SemiBold";
+  font-size: 18px;
+  margin: 10px 0;
+`;
 
 const ContentText = styled.h3`
   font-family: "Pretendard-Regular";
