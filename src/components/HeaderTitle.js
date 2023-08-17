@@ -1,14 +1,13 @@
 import React from "react";
-import { faCheck } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
+import { ReactComponent as Logo } from "./logo.svg";
 
-const HeaderTitle = ({ goHome, margin, font }) => {
+const HeaderTitle = ({ goHome, margin, width, height }) => {
   return (
     <>
       <TitleLogoDiv onClick={goHome} margin={margin}>
-        <TitleBig font={font}>
-          유체크 <FontAwesomeIcon icon={faCheck} color="#04D400" />
+        <TitleBig>
+          <Logo width={width} height={height} />
         </TitleBig>
       </TitleLogoDiv>
     </>

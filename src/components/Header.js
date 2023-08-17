@@ -2,7 +2,7 @@ import HeaderTitle from "./HeaderTitle";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
-const Header = ({ margin, font }) => {
+const Header = ({ margin, width, height }) => {
   const navigate = useNavigate();
   const goHome = () => {
     navigate("/");
@@ -11,7 +11,12 @@ const Header = ({ margin, font }) => {
   return (
     <>
       <HeaderDiv>
-        <HeaderTitle goHome={goHome} margin={margin} font={font} />
+        <HeaderTitle
+          goHome={goHome}
+          margin={margin}
+          width={width}
+          height={height}
+        />
       </HeaderDiv>
     </>
   );

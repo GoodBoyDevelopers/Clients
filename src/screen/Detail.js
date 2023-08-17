@@ -100,7 +100,7 @@ const Detail = () => {
       <Main>
         <DetailDiv>
           <DetailHeaderDiv>
-            <Header margin="auto" font="25px" />
+            <Header margin="auto" width="158px" height="30px" />
           </DetailHeaderDiv>{" "}
           <VideoBox>
             <ResultsBox videoInfo={videoInfo} detail={true}></ResultsBox>
