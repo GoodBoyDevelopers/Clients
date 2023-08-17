@@ -23,19 +23,24 @@ const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
     return totalseconds / 60;
   }
   const duration = convertToMinutes(videoInfo.duration);
-  var valid = false;
+  var valid = true;
+  var validation = "해당 영상이 맞다면\n여기를 눌러주세요.";
 
-  if (
-    (videoInfo.defaultLanguage !== "ko") &
-    (videoInfo.defaultAudioLanguage !== "ko")
-  ) {
-    var validation = `한국어 스크립트를\n지원하지 않는 영상입니다.`;
-  } else if (duration > 20) {
+  if (duration > 20) {
     validation = `20분 이하의 영상만\n서비스 가능합니다.`;
-  } else {
-    validation = "해당 영상이 맞다면\n여기를 눌러주세요.";
-    valid = true;
+    valid = false;
   }
+  // if (
+  //   (videoInfo.defaultLanguage !== "ko") &
+  //   (videoInfo.defaultAudioLanguage !== "ko")
+  // ) {
+  //   var validation = `한국어 스크립트를\n지원하지 않는 영상입니다.`;
+  // } else if (duration > 20) {
+  //   validation = `20분 이하의 영상만\n서비스 가능합니다.`;
+  // } else {
+  //   validation = "해당 영상이 맞다면\n여기를 눌러주세요.";
+  //   valid = true;
+  // }
 
   return (
     <>
