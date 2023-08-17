@@ -38,7 +38,7 @@ const ResultBoxText = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  /* white-space: nowrap; */
   overflow: hidden;
 `;
 
@@ -51,6 +51,7 @@ const ResultBoxTitle = styled.h2`
   line-height: normal;
   text-overflow: ellipsis;
   overflow: hidden;
+  white-space: nowrap;
 `;
 
 const ResultBoxNotice = styled.h1`
@@ -61,10 +62,13 @@ const ResultBoxNotice = styled.h1`
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  max-height: 40px;
-  white-space: pre-wrap;
   text-overflow: ellipsis;
+  display: -webkit-box;
+  word-wrap: break-word;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
+  width: 100%;
 `;
 
 export default ResultBoxContents;

@@ -12,6 +12,7 @@ const NewsItemBlock = styled.div`
 
   .thumbnail {
     margin-right: 1rem;
+    cursor: pointer;
 
     img {
       display: block;
@@ -24,12 +25,28 @@ const NewsItemBlock = styled.div`
 
   .contents {
     width: 100%;
+    cursor: pointer;
+
+    h1 {
+      font-family: "Pretendard-SemiBold";
+      margin-right: 8px;
+      margin-bottom: 8px;
+      margin-top: 8px;
+      font-size: 12px;
+      color: grey;
+    }
 
     h2 {
       margin: 0;
       font-family: "Pretendard-SemiBold";
       margin-right: 8px;
       font-size: 15px;
+      text-overflow: ellipsis;
+      display: -webkit-box;
+      word-wrap: break-word;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
 
       a {
         color: black;
@@ -68,7 +85,9 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
   console.log(differences);
   console.log(index);
   // props에 isFirstItem 추가
-  const { title, thumbnail, origin_link } = article;
+
+  const { origin_link, created_at, newspaper_name, title, thumbnail } = article;
+
   const [isVisible, setVisible] = useState(isFirstItem);
 
   const handleToggleContent = () => {
@@ -81,16 +100,21 @@ const NewsItem = ({ article, isFirstItem, differences, index }) => {
     <NewsItemBlock>
       <div style={{ display: "flex", alignItems: "center" }}>
         {
-          <div className="thumbnail">
+          <div
+            className="thumbnail"
+            onClick={() => window.open(`${origin_link}`, "_blank")}
+          >
             <img src={thumbnail} alt="thumbnail" />
           </div>
         }
-        <div className="contents">
-          <h2>
-            <Link to={origin_link} target="_blank" rel="noopener noreferrer">
-              {title}
-            </Link>
-          </h2>
+        <div
+          className="contents"
+          onClick={() => window.open(`${origin_link}`, "_blank")}
+          style={{ width: "100%" }}
+        >
+          <h1>{newspaper_name}</h1>
+          <h2>{title}</h2>
+          <h1>{created_at}</h1>
         </div>
         <button className="toggle-button" onClick={handleToggleContent}>
           {isVisible ? (

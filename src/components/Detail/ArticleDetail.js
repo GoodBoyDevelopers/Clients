@@ -32,12 +32,19 @@ const ArticleDetail = ({ article, differences, index }) => {
         )}
         {activeMenu === "comparison" && (
           <>
-            {differences.length === 0 ? (
-              <SkeletonSummary />
-            ) : (
-              <ContentText>
-                {differences[index] ? differences[index].reason : "로딩 중..."}
-              </ContentText>
+
+            {" "}
+            {activeMenu === "summary" && (
+              <ContentText>{article.summary}</ContentText>
+            )}
+            {activeMenu === "comparison" && (
+              <div>
+                <Persentage>
+                  이 영상과 {differences[index].percentage} 유사해요.
+                </Persentage>
+                <ContentText>{differences[index].reason}</ContentText>
+              </div>
+
             )}
           </>
         )}
@@ -45,6 +52,12 @@ const ArticleDetail = ({ article, differences, index }) => {
     </Container>
   );
 };
+
+const Persentage = styled.h2`
+  font-family: "Pretendard-SemiBold";
+  font-size: 18px;
+  margin: 10px 0;
+`;
 
 const ContentText = styled.h3`
   font-family: "Pretendard-Regular";

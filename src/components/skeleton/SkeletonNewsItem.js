@@ -6,7 +6,7 @@ import SkeletonTitle from "./SkeletonTitle";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown, faChevronUp } from "@fortawesome/free-solid-svg-icons";
 
-const NewsItemBlock = styled(SkeletonItem)`
+const NewsItemBlock = styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -70,30 +70,7 @@ const SkeletonNewsItem = () => {
 
   const chevronIconSize = "1.3rem";
 
-  return (
-    <NewsItemBlock>
-      <div style={{ display: "flex", alignItems: "center" }}>
-        {
-          <div className="thumbnail">
-            <SkeletonImg />
-          </div>
-        }
-        <div className="contents">
-          <SkeletonTitle />
-        </div>
-        <button className="toggle-button" onClick={handleToggleContent}>
-          {isVisible ? (
-            <FontAwesomeIcon icon={faChevronUp} size={chevronIconSize} />
-          ) : (
-            <FontAwesomeIcon icon={faChevronDown} size={chevronIconSize} />
-          )}
-        </button>
-      </div>
-      <div className="article-details-container">
-        <SkeletonTitle />
-      </div>
-    </NewsItemBlock>
-  );
+  return <SkeletonImg></SkeletonImg>;
 };
 
 export default SkeletonNewsItem;

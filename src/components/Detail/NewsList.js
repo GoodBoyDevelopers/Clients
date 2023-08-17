@@ -18,7 +18,7 @@ const NewsListBlock = styled.div`
 `;
 
 const NewsList = ({ news, differences }) => {
-  console.log(differences);
+  console.log(news, differences);
   return (
     <NewsListBlock>
       {news
