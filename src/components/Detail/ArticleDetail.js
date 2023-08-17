@@ -3,7 +3,7 @@ import styled from "styled-components";
 import SkeletonSummary from "../skeleton/SkeletonSummary";
 
 const ArticleDetail = ({ article, differences, index }) => {
-  console.log(differences);
+  // console.log(differences);
   const [activeMenu, setActiveMenu] = useState("summary");
 
   const handleMenuClick = (menu) => {
@@ -32,19 +32,15 @@ const ArticleDetail = ({ article, differences, index }) => {
         )}
         {activeMenu === "comparison" && (
           <>
-
-            {" "}
-            {activeMenu === "summary" && (
-              <ContentText>{article.summary}</ContentText>
-            )}
-            {activeMenu === "comparison" && (
+            {differences.length === 0 ? (
+              <SkeletonSummary />
+            ) : (
               <div>
                 <Persentage>
                   이 영상과 {differences[index].percentage} 유사해요.
                 </Persentage>
                 <ContentText>{differences[index].reason}</ContentText>
               </div>
-
             )}
           </>
         )}

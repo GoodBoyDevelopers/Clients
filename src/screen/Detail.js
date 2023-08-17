@@ -31,6 +31,7 @@ const Detail = () => {
   useEffect(() => {
     const linkData = { link: videoLink };
     const idData1 = {};
+    const newsData = {};
 
     axios
       .post(`${BASE_URL}/youtube/script/`, linkData)
@@ -39,6 +40,7 @@ const Detail = () => {
           console.log(response1);
           setScriptResponse(response1.data);
           idData1.id = response1.data.id;
+          newsData.youtube_id = response1.data.id;
           return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
         }
         throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
@@ -58,17 +60,27 @@ const Detail = () => {
           console.log(response3);
           setNewsResponse(response3.data);
           //const idData3 = { id: response3.data.youtube };
-          return axios.post(`${BASE_URL}/difference/`, idData1);
+          return Promise.all(
+            response3.data.map((newsItem) => {
+              newsData.article_id = newsItem.id;
+              // console.log(newsData);
+              return axios.post(`${BASE_URL}/difference/`, newsData);
+            })
+          );
         } else if (response3.status === 204) {
+          setNewsResponse(0);
           console.log("No news found for the video");
           return;
         }
         throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
       })
       .then((response4) => {
+        if (!response4) {
+          return;
+        }
         console.log(response4);
-        setDifferenceResponse(response4.data);
-        console.log(response4.data);
+        const differenceData = response4.map((response4) => response4.data);
+        setDifferenceResponse(differenceData);
         if (response4.status !== 201) {
           throw new Error("백엔드 코드 문제일듯");
         }
@@ -98,12 +110,22 @@ const Detail = () => {
               {!summaryResponse && <SkeletonSummary />}
             </Description>
           </DescriptionBox>
-          {newsResponse !== null ? (
+          {newsResponse ? (
             <ArticleBox>
               <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
               {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
               <Keyword keywords={keywordResponse} />
-              <NewsList news={newsResponse} differences={differenceResponse} />
+              <NewsList
+                news={newsResponse}
+                differences={differenceResponse || []}
+              />
+            </ArticleBox>
+          ) : newsResponse === null ? (
+            <ArticleBox>
+              <ResultTitleBig>
+                영상과 관련된 기사를 찾는 중입니다.
+              </ResultTitleBig>
+              <Keyword keywords={keywordResponse} />
             </ArticleBox>
           ) : (
             <ArticleBox>
