@@ -36,20 +36,19 @@ const Detail = () => {
     axios
       .post(`${BASE_URL}/youtube/script/`, linkData)
       .then((response1) => {
+        // console.log(response1.message);
         if (response1.status === 201) {
-          console.log(response1);
+          // console.log(response1);
           setScriptResponse(response1.data);
           idData1.id = response1.data.id;
           newsData.youtube_id = response1.data.id;
           return axios.post(`${BASE_URL}/youtube/keyword/`, idData1);
-        } else if (response1.status !== 201) {
-          return;
         }
         throw new Error("유튜브 스크립트를 뽑아올 수 없는 영상임");
       })
       .then((response2) => {
         if (response2.status === 201) {
-          console.log(response2);
+          // console.log(response2);
           setSummaryResponse(response2.data.summary);
           setKeywordResponse(response2.data.keywords);
           const idData2 = { id: response2.data.id };
@@ -59,7 +58,7 @@ const Detail = () => {
       })
       .then((response3) => {
         if (response3.status === 201) {
-          console.log(response3);
+          // console.log(response3);
           setNewsResponse(response3.data);
           //const idData3 = { id: response3.data.youtube };
           return Promise.all(
@@ -71,7 +70,7 @@ const Detail = () => {
           );
         } else if (response3.status === 204) {
           setNewsResponse(0);
-          console.log("No news found for the video");
+          // console.log("No news found for the video");
           return;
         }
         throw new Error("적당한 네이버 뉴스가 없는 것 or 백엔드 코드 문제");
@@ -80,15 +79,22 @@ const Detail = () => {
         if (!response4) {
           return;
         }
-        console.log(response4);
+        // console.log(response4);
         const differenceData = response4.map((response4) => response4.data);
         setDifferenceResponse(differenceData);
         if (response4.status !== 201) {
           throw new Error("백엔드 코드 문제일듯");
         }
-        console.log("All POST requests were successful!");
+        // console.log("All POST requests were successful!");
       })
-      .catch((err) => setError(err.message))
+      .catch((err) => {
+        if (err.response && err.response.status === 400) {
+          setScriptResponse(0);
+          // console.log("error");
+          return;
+        }
+        setError(err.message);
+      })
       .finally(() => {});
   }, []);
   return (
@@ -105,37 +111,55 @@ const Detail = () => {
           <VideoBox>
             <ResultsBox videoInfo={videoInfo} detail={true}></ResultsBox>
           </VideoBox>
-          <DescriptionBox>
-            <ResultTitleBig>위 영상을 요약해봤어요.</ResultTitleBig>
-            <Description>
-              {summaryResponse}
-              {!summaryResponse && <SkeletonSummary />}
-            </Description>
-          </DescriptionBox>
-          {newsResponse ? (
-            <ArticleBox>
-              <ResultTitleBig>영상과 관련된 기사를 찾아봤어요.</ResultTitleBig>
-              {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
-              <Keyword keywords={keywordResponse} />
-              <NewsList
-                news={newsResponse}
-                differences={differenceResponse || []}
-              />
-            </ArticleBox>
-          ) : newsResponse === null ? (
-            <ArticleBox>
-              <ResultTitleBig>
-                영상과 관련된 기사를 찾는 중입니다.
-              </ResultTitleBig>
-              <Keyword keywords={keywordResponse} />
-            </ArticleBox>
+          {scriptResponse === null ? (
+            <DescriptionBox>
+              <ResultTitleBig>위 영상을 요약중입니다.</ResultTitleBig>
+              <Description>
+                {summaryResponse}
+                {!summaryResponse && <SkeletonSummary />}
+              </Description>
+            </DescriptionBox>
+          ) : scriptResponse === 0 ? (
+            <DescriptionBox>
+              <ResultTitleBig>영상 요약을 할 수 없습니다.</ResultTitleBig>
+            </DescriptionBox>
           ) : (
-            <ArticleBox>
-              <ResultTitleBig>
-                영상과 관련된 기사를 찾지 못했습니다.
-              </ResultTitleBig>
-              <Keyword keywords={keywordResponse} />
-            </ArticleBox>
+            <>
+              <DescriptionBox>
+                <ResultTitleBig>위 영상을 요약해봤어요.</ResultTitleBig>
+                <Description>
+                  {summaryResponse}
+                  {!summaryResponse && <SkeletonSummary />}
+                </Description>
+              </DescriptionBox>
+              {newsResponse ? (
+                <ArticleBox>
+                  <ResultTitleBig>
+                    영상과 관련된 기사를 찾아봤어요.
+                  </ResultTitleBig>
+                  {/* <KeywordDescription>키워드를 눌러주세요.</KeywordDescription> */}
+                  <Keyword keywords={keywordResponse} />
+                  <NewsList
+                    news={newsResponse}
+                    differences={differenceResponse || []}
+                  />
+                </ArticleBox>
+              ) : newsResponse === null ? (
+                <ArticleBox>
+                  <ResultTitleBig>
+                    영상과 관련된 기사를 찾는 중입니다.
+                  </ResultTitleBig>
+                  <Keyword keywords={keywordResponse} />
+                </ArticleBox>
+              ) : (
+                <ArticleBox>
+                  <ResultTitleBig>
+                    영상과 관련된 기사를 찾지 못했습니다.
+                  </ResultTitleBig>
+                  <Keyword keywords={keywordResponse} />
+                </ArticleBox>
+              )}
+            </>
           )}
         </DetailDiv>
       </Main>

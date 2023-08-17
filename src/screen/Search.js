@@ -7,10 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { Main } from "../styledComponents";
-import SkeletonNewsItem from "../components/skeleton/SkeletonArticle";
-import SkeletonArticle from "../components/skeleton/SkeletonArticle";
-import SkeletonImg from "../components/skeleton/SkeletonImg";
-import SkeletonTitle from "../components/skeleton/SkeletonTitle";
 
 const Search = () => {
   const [videoLink, setVideoLink] = useState("");

@@ -82,8 +82,8 @@ const ChevronIcon = styled(FontAwesomeIcon)`
 `;
 
 const NewsItem = ({ article, isFirstItem, differences, index }) => {
-  console.log(differences);
-  console.log(index);
+  // console.log(differences);
+  // console.log(index);
   // props에 isFirstItem 추가
 
   const { origin_link, created_at, newspaper_name, title, thumbnail } = article;

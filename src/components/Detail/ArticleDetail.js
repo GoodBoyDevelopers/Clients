@@ -12,7 +12,7 @@ const ArticleDetail = ({ article, differences, index }) => {
 
   const getTextColor = (percentage) => {
     const parsedPercentage = parseFloat(percentage);
-    console.log(parsedPercentage);
+    // console.log(parsedPercentage);
     if (parsedPercentage < 30) {
       return "#a9a9a9";
     } else if (parsedPercentage < 50) {

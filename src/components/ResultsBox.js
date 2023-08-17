@@ -29,7 +29,7 @@ const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
     (videoInfo.defaultLanguage !== "ko") &
     (videoInfo.defaultAudioLanguage !== "ko")
   ) {
-    var validation = `한국어 영상만\n서비스 중입니다.`;
+    var validation = `한국어 스크립트를\n지원하지 않는 영상입니다.`;
   } else if (duration > 20) {
     validation = `20분 이하의 영상만\n서비스 가능합니다.`;
   } else {
