@@ -8,6 +8,8 @@ import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons";
 import { motion } from "framer-motion";
 import { Main } from "../styledComponents";
 
+const YOUTUBE_API_KEY = process.env.REACT_APP_YOUTUBE_API_KEY;
+
 const Search = () => {
   const [videoLink, setVideoLink] = useState("");
   const [videoInfo, setVideoInfo] = useState(null);
@@ -35,10 +37,10 @@ const Search = () => {
         const videoId = extractVideoId(videoLink);
         if (videoId) {
           const response = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+            `https://www.googleapis.com/youtube/v3/videos?part=snippet&id=${videoId}&key=${YOUTUBE_API_KEY}`
           );
           const response2 = await axios.get(
-            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${process.env.REACT_APP_YOUTUBE_API_KEY}`
+            `https://www.googleapis.com/youtube/v3/videos?part=contentDetails&id=${videoId}&key=${YOUTUBE_API_KEY}`
           );
 
           const videoInfo = response.data.items[0]?.snippet;

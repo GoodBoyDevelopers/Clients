@@ -4,7 +4,7 @@ import SkeletonItem from "./SkeletonItem";
 
 const SkeletonSummary = () => {
   return (
-    <div>
+    <div style={{ marginBottom: "1rem" }}>
       <SSkeletonSummary />
       <SSkeletonSummary />
       <SSkeletonSummary />

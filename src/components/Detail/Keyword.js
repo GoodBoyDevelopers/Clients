@@ -55,6 +55,7 @@ const KeywordButton = styled.button`
 const KeywordContainer = styled.div`
   align-items: center;
   margin-left: 20px;
+  margin-bottom: 1rem;
 `;
 
 export default Keyword;

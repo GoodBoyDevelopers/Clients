@@ -12,14 +12,13 @@ import axios from "axios";
 import SkeletonSummary from "../components/skeleton/SkeletonSummary";
 import NewsList from "../components/Detail/NewsList";
 
-const BASE_URL = "https://port-0-you-check-ac2nllazbxp3.sel3.cloudtype.app/";
+const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+// const BASE_URL = "https://port-0-you-check-ac2nllazbxp3.sel3.cloudtype.app/";
 
 const Detail = () => {
   const location = useLocation();
   const videoLink = location.state.videoLink;
   const videoInfo = location.state.videoInfo;
-
-  const [error, setError] = useState(null);
 
   // 화면에 나타낼 데이터 변수들 useState로 설정 => 이것들이 초깃값일 때 loading 화면 띄워주고 아니면 data 보여주면 됨
   const [scriptResponse, setScriptResponse] = useState(null);
@@ -89,11 +88,11 @@ const Detail = () => {
       })
       .catch((err) => {
         if (err.response && err.response.status === 400) {
+          console.log(err.response);
           setScriptResponse(0);
           // console.log("error");
           return;
         }
-        setError(err.message);
       })
       .finally(() => {});
   }, []);
@@ -150,6 +149,9 @@ const Detail = () => {
                     영상과 관련된 기사를 찾는 중입니다.
                   </ResultTitleBig>
                   <Keyword keywords={keywordResponse} />
+                  <SkeletonSummary />
+                  <SkeletonSummary />
+                  <SkeletonSummary />
                 </ArticleBox>
               ) : (
                 <ArticleBox>
