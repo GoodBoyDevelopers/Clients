@@ -149,9 +149,12 @@ const Detail = () => {
                     영상과 관련된 기사를 찾는 중입니다.
                   </ResultTitleBig>
                   <Keyword keywords={keywordResponse} />
-                  <SkeletonSummary />
-                  <SkeletonSummary />
-                  <SkeletonSummary />
+                  <div style={{ padding: "1rem" }}>
+                    {" "}
+                    <SkeletonSummary />
+                    <SkeletonSummary />
+                    <SkeletonSummary />
+                  </div>
                 </ArticleBox>
               ) : (
                 <ArticleBox>
