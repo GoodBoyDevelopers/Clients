@@ -12,8 +12,8 @@ import axios from "axios";
 import SkeletonSummary from "../components/skeleton/SkeletonSummary";
 import NewsList from "../components/Detail/NewsList";
 
-const BASE_URL = process.env.REACT_APP_API_BASE_URL;
-// const BASE_URL = "https://port-0-you-check-ac2nllazbxp3.sel3.cloudtype.app/";
+// const BASE_URL = process.env.REACT_APP_API_BASE_URL;
+const BASE_URL = "https://port-0-you-check-ac2nllazbxp3.sel3.cloudtype.app/";
 
 const Detail = () => {
   const location = useLocation();
