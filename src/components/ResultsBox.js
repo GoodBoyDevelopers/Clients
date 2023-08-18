@@ -26,8 +26,8 @@ const ResultsBox = ({ videoLink, videoInfo, detail, videoId }) => {
   var valid = true;
   var validation = "해당 영상이 맞다면\n여기를 눌러주세요.";
 
-  if (duration > 20) {
-    validation = `20분 이하의 영상만\n서비스 가능합니다.`;
+  if (duration > 60) {
+    validation = `60분 이하의 영상만\n서비스 가능합니다.`;
     valid = false;
   }
   // if (
